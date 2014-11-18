@@ -5,22 +5,41 @@
 <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
 <script src="../js/jquery.js" type="text/javascript"></script>
 <script src="../js/bootstrap.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../css/example.css">
+
+<!-- This is what you need -->
+<script src="../js/sweet-alert.js"></script>
+<link rel="stylesheet" href="../css/sweet-alert.css">
+<!--.......................-->
 </head>
 <body>
  <div class="container">
 
   <div class="container">
-   <h3>Leave comment</h3>
+   <h3>Leave your comment</h3>
    <form role="form">
     <div class="form-group">
          <label for="usr">Name:</label>     <input type="text" class="form-control" id="usr"> <label for="pwd">Password:</label>    
      <input type="password" class="form-control" id="pwd">  
     </div>
      
-    <textarea rows="4" cols="50" name="comment" form="usrform"></textarea>
+    <textarea rows="5" cols="50" name="comment" form="usrform"></textarea>
+
+
     <br> <input type="submit">
+
    </form>
   </div>
+  <div>
+   <button>Comment</button>
+  </div>
+  <script>
+			document.querySelector('button').onclick = function() {
+				swal("Success!", "You left a comment!", "success");
+			};
+		</script>
  </div>
+
 </body>
 </html>
