@@ -1,4 +1,4 @@
-$(window).load(function(){
+$(document).ready(function(){
 pageSize = 3;
 
 showPage = function(page) {

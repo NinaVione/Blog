@@ -45,22 +45,6 @@ var posts = [
 			date : '24/05/2011'
 		}, ];
 
-$(function() {
-
-	var viewModel = {
-		query : ko.observable('')
-	};
-
-	viewModel.posts = ko.dependentObservable(function() {
-		var search = this.query().toLowerCase();
-		return ko.utils.arrayFilter(posts, function(post) {
-			return post.title.toLowerCase().indexOf(search) >= 0;
-		});
-	}, viewModel);
-
-	ko.applyBindings(viewModel);
-});
-
 function searchPost() {
 	var i;
 	var str = document.getElementById("datepicker").value;
@@ -75,3 +59,44 @@ function searchPost() {
 		}
 	}
 }
+
+$(function() {
+	var count = 0;
+	var content = '';
+	while (count < posts.length) {
+		if (count < 3) {
+			content = content
+					+ '<div class="well well-large content" style="display: block;"><h4>'
+					+ posts[count].title + '</h4><p>' + posts[count].content
+					+ '</p><br><p>' + posts[count].date + '</p></div>';
+		} else {
+			content = content
+					+ '<div class="well well-large content" style="display: none;"><h4>'
+					+ posts[count].title + '</h4><p>' + posts[count].content
+					+ '</p><br><p>' + posts[count].date + '</p></div>';
+		}
+		count = count + 1;
+
+	}
+	document.getElementById('p').innerHTML = content;
+});
+
+$(document).ready(function() {
+	$("#filter").keyup(function() {
+		var filter = $(this).val(), count = 0;
+		var input = document.getElementById('filter');
+		$(".posts div").each(function() {
+			if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+				$(this).hide();
+			} else {
+				$(this).show();
+				count++;
+			}
+			if (input.value.length == 0) {
+				var page = $('.current').html();
+				showPage(page);
+			}
+		});
+
+	});
+});
