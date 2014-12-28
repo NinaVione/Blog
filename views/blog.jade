@@ -1,0 +1,328 @@
+extends layout
+
+block content
+  meta(charset='UTF-8')
+  link(rel='shortcut icon', href='stylesheets/pix/paw.ico')
+  link(href='stylesheets/css/bootstrap.css', rel='stylesheet', type='text/css')
+  link(href='stylesheets/css/font-awesome.css', rel='stylesheet', type='text/css')
+  link(href='stylesheets/css/page.css', rel='stylesheet', type='text/css')
+  link(href='stylesheets/css/normalize.css', rel='stylesheet', type='text/css')
+  link(href='stylesheets/css/sweet-alert.css', rel='stylesheet')
+  link(href='stylesheets/css/jquery-ui.css', rel='stylesheet')
+  link(href='stylesheets/css/screen.css', rel='stylesheet')
+  link(href='stylesheets/css/lightbox.css', rel='stylesheet')
+  script(src='stylesheets/js/jquery.js', type='text/javascript')
+  script(src='stylesheets/js/bootstrap.js', type='text/javascript')
+  script(src='stylesheets/js/pagination.js', type='text/javascript')
+  script(src='stylesheets/js/sweet-alert.js')
+  script(src='stylesheets/js/calendar.js', type='text/javascript')
+  script(src='stylesheets/js/lightbox.js', type='text/javascript')
+  script(src='stylesheets/js/jquery-ui.js')
+  script(src='stylesheets/js/jquery.tmpl.js', type='text/javascript')
+  script(src='stylesheets/js/knockout-1.2.1.js', type='text/javascript')
+  script(src='stylesheets/js/content.js', type='text/javascript')
+
+  style(type='text/css').
+      body {
+      padding-bottom: 40px;
+      }
+      /* Custom container */
+      .container-narrow {
+      margin: 0 auto;
+      max-width: 700px;
+      }
+      .container-narrow>hr {
+      margin: 30px 0;
+      }
+      /* Main marketing message and sign up button */
+      .jumbotron {
+      margin: 60px 0;
+      text-align: center;
+      }
+      .jumbotron h1 {
+      font-size: 72px;
+      line-height: 1;
+      }
+      .jumbotron .btn {
+      font-size: 21px;
+      padding: 14px 24px;
+      }
+      .marketing p+h4 {
+      margin-top: 28px;
+      }
+  
+  body
+    .container-narrow
+      .navbar
+        .container
+          .nav-collapse.collapse.navbar-responsive-collapse
+            ul.nav
+              li
+                a.brand(href='#BLOG', data-toggle='tab')
+                  i.fa.fa-paw
+                  |  Blog
+              |             
+              li.active
+                a(href='#HOME', data-toggle='tab')
+                  i.fa.fa-home
+                  |  Home
+              |             
+              li
+                a(href='#GALLERY', data-toggle='tab')
+                  i.fa.fa-picture-o
+                  |  Gallery
+              |             
+              li
+                a(href='#INFO', data-toggle='tab')
+                  i.fa.fa-info-circle
+                  |  Info
+            |           
+            ul.nav.pull-right
+              li
+                a(href='https://www.google.com', target='_blank') Google
+      |     
+      .jumbotron
+        h1 What is a One Page Website?
+        |       
+        br
+        |       
+        p.lead
+          | A one page website is simply a single page website that uses only one HTML page. When clicking on navigation
+          | links, the user scrolls down the page or jumps to that particular content&rsquo;s section. The website may use JavaScript, jQuery, CSS, or
+          | Ajax to accomplish this movement.
+      |     
+      hr
+      |  
+      .tab-content
+        #BLOG.tab-pane
+          div(align='right')
+           button.btn.btn-success(type='button', data-toggle='modal', data-target='#postModal')
+            i.fa.fa-plus-square
+            |  Add post
+          |         
+          br
+          |    
+          .row
+            form(action='#')
+              .span4
+                input#filter.search-query.span2.text-input(type='text', placeholder='Title search…', autocomplete='off')
+              |             
+              div(align='right')
+                input#datepicker.search-query.span2(type='text', placeholder='Date search...')
+                |               
+                button.btn.btn-info(onclick='searchPost()')
+                  | Search 
+                  i.fa.fa-search
+          #postModal.modal.fade(role='dialog', aria-hidden='true')
+           .modal-dialog
+            .modal-content
+             .modal-header
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+               span(aria-hidden='true') &times;
+              |                 
+              h4.modal-title New post
+             |               
+             .modal-body
+              form
+               .form-group
+                 label.control-label(for='title') Title:
+                 |  
+                 input#title.form-control(type='text')
+               |                   
+               .form-group
+                label.control-label(for='content') Content:
+                |                     
+                textarea#content.form-control
+             |               
+             .modal-footer
+              button.btn.btn-default(type='button', data-dismiss='modal') Close
+              |                 
+              button.btn.btn-info(type='button', data-dismiss='modal', data-toggle='modal', data-target='#okModal') Publish
+          |      
+          #okModal.modal.fade(role='dialog', aria-hidden='true')
+           .modal-dialog
+            .modal-content
+             .modal-header
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+               span(aria-hidden='true') &times;
+              |                 
+              h4.modal-title You added a post
+             |               
+             .modal-body
+              h1(align='center')
+               i.fa.fa-thumbs-up
+               |  Success!
+             |               
+             .modal-footer
+              button.btn.btn-default(type='button', data-dismiss='modal') Close
+          |         
+          #p.posts(style='display: initial;')
+          |         
+          ol#pagin.pagination
+            li
+              a.current(href='#') 1
+            |           
+            li
+              a(href='#') 2
+            |           
+            li
+              a(href='#') 3
+        |  
+        #HOME.tab-pane.active
+          #myCarousel.carousel.slide
+            ol.carousel-indicators
+              li.active(data-target='#myCarousel', data-slide-to='0')
+              |             
+              li(data-target='#myCarousel', data-slide-to='1')
+              |             
+              li(data-target='#myCarousel', data-slide-to='2')
+            |           
+            .carousel-inner
+              .item.active
+                img(src='stylesheets/pix/slide_1.jpg', alt='')
+                |               
+                .carousel-caption
+                  h4 Why Should I Read Your Blog?
+                  |                 
+                  p
+                    | Not everyone needs to have a how-to blog or be offering expertise on a particular subject, but every blogger should
+                    | have a reason for blogging (and a reason for others to read what they write).
+              |             
+              .item
+                img(src='stylesheets/pix/slide_2.jpg', alt='')
+                |               
+                .carousel-caption
+                  h4 What?
+                  |                 
+                  p
+                    | ORLY?
+                    br
+                    | I know, I know&mldr; starting a blog can be confusing. I kept searching for information and &ldquo;how-to&rdquo; guides on
+                    |                   Google.
+              |             
+              .item
+                img(src='stylesheets/pix/slide_3.jpg', alt='')
+                |               
+                .carousel-caption
+                  h4 Communicate
+                  |                 
+                  p
+                    | Meeting new people and building strong relationships is an important component of professional development.
+            |           
+            a.left.carousel-control(href='#myCarousel', data-slide='prev') &lsaquo;
+            |  
+            a.right.carousel-control(href='#myCarousel', data-slide='next') &rsaquo;
+        |       
+        #GALLERY.tab-pane
+          .row-fluid
+            ul.thumbnails
+              li.span4
+                .thumbnail
+                  a.example-image-link(href='stylesheets/pix/sea.jpg', data-lightbox='example-set', data-title='Photos')
+                    img.example-image(src='stylesheets/pix/sea.jpg', alt='300x300', style='width: 210px; height: 210px;')
+                  |                 
+                  .caption
+                    h3 Photos
+                    |                   
+                    p That&apos;s what i like to do. Make photos of beautiful places.
+              |             
+              li.span4
+                .thumbnail
+                  a.example-image-link(href='stylesheets/pix/cat.jpg', data-lightbox='example-set', data-title='Niusia')
+                    img.example-image(src='stylesheets/pix/cat.jpg', alt='300x300', style='width: 210px; height: 210px;')
+                  |                 
+                  .caption
+                    h3 Niusia
+                    |                   
+                    p Anyway after a good day she gives me some scratches.
+              |             
+              li.span4
+                .thumbnail
+                  a.example-image-link(href='stylesheets/pix/guitar.jpg', data-lightbox='example-set', data-title='Guitar')
+                    img.example-image(src='stylesheets/pix/guitar.jpg', alt='300x300', style='width: 210px; height: 210px;')
+                  |                 
+                  .caption
+                    h3 Guitar
+                    |                   
+                    p And my favourite one.
+                    |                   
+                    br
+                    |  
+                    br
+          |         
+          .row-fluid
+            ul.thumbnails
+              li.span4
+                .thumbnail
+                  a.example-image-link(href='stylesheets/pix/code.jpg', data-lightbox='example-set', data-title='Coding')
+                    img.example-image(src='stylesheets/pix/code.jpg', alt='300x300', style='width: 210px; height: 210px;')
+                  |                 
+                  .caption
+                    h3 Coding
+                    |                   
+                    p Of course coding. Just to make something knew.
+              |             
+              li.span4
+                .thumbnail
+                  a.example-image-link(href='stylesheets/pix/food.jpg', data-lightbox='example-set', data-title='Food')
+                    img.example-image(src='stylesheets/pix/food.jpg', alt='300x300', style='width: 210px; height: 210px;')
+                  |                 
+                  .caption
+                    h3 Food
+                    |                   
+                    p To make it different!
+                    |                   
+                    br
+              |             
+              li.span4
+                .thumbnail
+                  a.example-image-link(href='stylesheets/pix/skate.jpg', data-lightbox='example-set', data-title='Skateboarding')
+                    img.example-image(src='stylesheets/pix/skate.jpg', alt='300x300', style='width: 210px; height: 210px;')
+                  |                 
+                  .caption
+                    h3 Skateboarding
+                    |                   
+                    p I always wait for summer to take my skateboard again!
+        | 
+        #INFO.tab-pane
+          .alert.alert-info
+            i.fa.fa-chevron-circle-down
+            strong This site is a blog site.
+            |           
+            p Created by Nina Vione
+            |           
+            p
+              i.fa.fa-envelope.fa-2x
+              |  E-mail: ninavione@gmail.com
+            |           
+            br
+            |           
+            p
+              | A blog is often a mixture of what is happening in a person&rsquo;s life and what is happening on the Web, a kind of hybrid
+              | diary/guide site, although there are as many unique types of blogs as there are people.
+            |           
+            br
+            |           
+            p
+              | People maintained blogs long before the term was coined, but the trend gained momentum with the introduction of automated
+              | published systems, most notably Blogger at blogger.com.
+            |           
+            br
+            |           
+            p
+              | Thousands of people use services such as Blogger to simplify and accelerate the publishing process.
+            |           
+            br
+            |           
+            p Blogs are alternatively called web logs or weblogs.
+      |     
+      hr
+    |                    
+  div(style="background-image: url('stylesheets/pix/jake.png'); background-repeat: no-repeat; weight: 470px; height: 110px; margin-left: 38%;")
+      footer(style='font-family: Comic Sans MS; margin-left: 14%; font-size: large;')
+        br 
+        br
+        br
+        &copy; Nina Vione 2014
+    
+
