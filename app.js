@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cache = require('js-cache');
+var underscore = require('underscore');
 
 // New Code
 var mongo = require('mongodb');
@@ -100,13 +101,7 @@ app.post('/addPost', function(req, res) {
 });
 
 app.post('/removePost', function(req, res) {
-  var count = 0;
-  while (count < data.length) {
-    if (data[count].id == req.body.id) {
-            data.splice(count, 1)
-    }
-    count = count + 1;
-  }
+  data = underscore._.reject(data, function (list) { return list.id == req.body.id });
   res.send(data);
 });
 
