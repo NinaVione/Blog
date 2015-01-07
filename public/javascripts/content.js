@@ -8,7 +8,7 @@ var onData =
  }
 var onErr =
  function (req, status, error) {
-  console.log('error', error);
+  console.log('error', errorThrown);
  }
 
 getData();
